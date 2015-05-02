@@ -1,19 +1,15 @@
 # google_visualization_api
 
-A library for Dart developers. It is awesome.
+A library to make it easy to use [Google's visualization api][api]
 
 ## Usage
 
-A simple usage example:
+You can use the api as you would do in the javascript version like this:
 
-    import 'package:google_visualization_api/google_visualization_api.dart';
+    LineChart.load().then((_) {
+      LineChart chart = new LineChart(...);
+      DataTable data = new DataTable(...);
+      chart.draw(data);
+    });
 
-    main() {
-      var awesome = new Awesome();
-    }
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
+[api]: https://developers.google.com/chart/
