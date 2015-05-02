@@ -12,6 +12,7 @@ import 'google_visualization_api_base.dart';
 part 'charts/stepped_area_chart.dart';
 part 'charts/line_chart.dart';
 part 'charts/area_chart.dart';
+part 'charts/column_chart.dart';
 
 /// Chart base
 abstract class Chart {
