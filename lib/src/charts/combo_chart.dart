@@ -1,7 +1,7 @@
 part of google_visualization_api.charts;
 
-class AreaChart extends Chart {
-  AreaChart(Element e) : super._(e, "AreaChart", vis) {
+class ComboChart extends Chart {
+  ComboChart(Element e) : super._(e, "ComboChart", vis) {
 
   }
 

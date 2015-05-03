@@ -1,7 +1,7 @@
 part of google_visualization_api.charts;
 
 class LineChart extends Chart {
-  LineChart(Element e) : super._(e, "LineChart") {
+  LineChart(Element e) : super._(e, "LineChart", vis) {
 
   }
 

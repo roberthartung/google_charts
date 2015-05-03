@@ -9,15 +9,12 @@ class DataTable {
   /// Public getter for the proxy
   JsObject get jsProxy => _jsProxy;
 
-  /// Namespace
-  static final ns = context["google"]["visualization"];
-
   /// Default Constructor
   DataTable([data, version = '0.6']) {
     if (data == null) {
-      _jsProxy = new JsObject(ns["DataTable"], []);
+      _jsProxy = new JsObject(vis["DataTable"], []);
     } else {
-      _jsProxy = new JsObject(ns["DataTable"], [
+      _jsProxy = new JsObject(vis["DataTable"], [
         new JsObject.jsify(data),
         new JsObject.jsify(version)
       ]);
@@ -28,6 +25,9 @@ class DataTable {
   DataTable._clone(DataTable other) {
     _jsProxy = other.jsProxy.callMethod('clone');
   }
+
+  /// Temporary constructor
+  DataTable.fromJsObject(this._jsProxy);
 
   num addColumn(type_or_description_object, [String label, String id]) {
     if (type_or_description_object is Map) {

@@ -1,7 +1,7 @@
 part of google_visualization_api.charts;
 
-class AreaChart extends Chart {
-  AreaChart(Element e) : super._(e, "AreaChart", vis) {
+class BubbleChart extends Chart {
+  BubbleChart(Element e) : super._(e, "BubbleChart", vis) {
 
   }
 

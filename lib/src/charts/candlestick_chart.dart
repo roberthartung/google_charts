@@ -1,7 +1,7 @@
 part of google_visualization_api.charts;
 
-class AreaChart extends Chart {
-  AreaChart(Element e) : super._(e, "AreaChart", vis) {
+class CandlestickChart extends Chart {
+  CandlestickChart(Element e) : super._(e, "CandlestickChart", vis) {
 
   }
 

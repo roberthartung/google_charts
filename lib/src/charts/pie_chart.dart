@@ -1,7 +1,7 @@
 part of google_visualization_api.charts;
 
-class AreaChart extends Chart {
-  AreaChart(Element e) : super._(e, "AreaChart", vis) {
+class PieChart extends Chart with CoreChart {
+  PieChart(Element e) : super._(e, "PieChart", vis) {
 
   }
 

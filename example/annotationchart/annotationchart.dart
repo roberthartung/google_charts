@@ -1,3 +1,6 @@
+/// Example taken from the official website at
+/// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
+
 import 'dart:html';
 import 'package:google_visualization_api/google_visualization_api.dart';
 
