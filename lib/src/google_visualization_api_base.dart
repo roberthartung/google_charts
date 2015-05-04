@@ -5,4 +5,5 @@ import 'dart:async';
 
 import 'google_visualization_api_static.dart';
 
+part 'base/events.dart';
 part 'base/datatable.dart';

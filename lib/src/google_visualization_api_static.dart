@@ -1,7 +1,6 @@
 library google_visualization_api.static;
 
 import 'dart:js';
-import 'dart:async';
 import 'google_visualization_api_base.dart';
 
 part 'static/events.dart';
