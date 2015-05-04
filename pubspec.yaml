@@ -1,7 +1,7 @@
 name: google_visualization_api
 version: 0.0.1
 description: A starting point for Dart libraries or applications.
-dependencies:
-  browser: any
 dev_dependencies:
+  args: any
+  browser: any
   unittest: '>=0.11.0 <0.12.0'
