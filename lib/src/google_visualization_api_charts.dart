@@ -99,11 +99,3 @@ abstract class CoreChart {
 
   }
 }
-
-abstract class Events {
-  Stream<Event> get onError => null;
-  Stream<Event> get onMouseOver => null;
-  Stream<Event> get onMouseOut => null;
-  Stream<Event> get onReady => null;
-  Stream<Event> get onSelect => null;
-}

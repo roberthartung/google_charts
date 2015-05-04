@@ -72,10 +72,12 @@ class DataTable {
   }
 
   JsObject getColumnProperties(int columnIndex) {
+    // TODO(rh)
     return jsProxy.callMethod('getColumnProperties', [columnIndex]) as JsObject;
   }
 
   JsObject getColumnRange(int columnIndex) {
+    // TODO(rh)
     return jsProxy.callMethod('getColumnRange', [columnIndex]) as JsObject;
   }
 
