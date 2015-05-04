@@ -19,7 +19,7 @@ You can use the api as you would do in the javascript version like this:
 Following Events are supported by the different chart types:
 
 | Name | select | ready | animationfinish | click | error | onmouseover | onmouseout | regionClick | collapse | rangechange | page | sort | rollup |
-| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| ---- | ------ | ----- | --------------- | ----- | ----- | ----------- | ---------- | ----------- | -------- | ----------- | ---- | ---- | ------ |
 | AnnotationChart | x | x |  |  |  |  |  |  |  | x |  |  |  |
 | AreaChart* | x | x | x | x | x | x | x |  |  |  |  |  |  |
 | BarChart* | x | x | x | x | x | x | x |  |  |  |  |  |  |

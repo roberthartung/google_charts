@@ -27,10 +27,10 @@ void main(List<String> arguments) {
       sink.write('|\n');
       if(lineCount == 1) {
         // Name
-        sink.write('| -- ');
+        sink.write('| ${'-'*name.length} ');
         // Events
         columns.forEach((String col) {
-          sink.write('| -- ');
+          sink.write('| ${'-'*col.length} ');
         });
         sink.write('|\n');
       }
