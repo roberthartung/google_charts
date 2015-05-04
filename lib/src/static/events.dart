@@ -10,7 +10,7 @@ abstract class Events {
   }
 
   static void removeListener(listener_handler) {
-    return vis['events'].callMethod('addOneTimeListener', [listener_handler]);
+    return vis['events'].callMethod('removeListener', [listener_handler]);
   }
 
   /// TODO(rh): removeAllListeners
