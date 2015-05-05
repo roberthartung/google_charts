@@ -5,7 +5,11 @@ import 'dart:io';
 
 final String header = """library google_visualization_api.chart.options;
 
-part 'chart_options/types.dart';""";
+part 'chart_options/types.dart';
+
+class CoreChartOptions {
+}
+""";
 
 final Set<String> options = new Set();
 final Set<String> charts = new Set();
@@ -17,49 +21,89 @@ IOSink sink = f.openWrite();
 
 IOSink doc_sink = new File('./doc/chart_options.md').openWrite();
 
+String getDescription(Element td) {
+  String desc = "";
+  td.children.forEach((Element child) {
+    if(child.nodeType == Node.TEXT_NODE) {
+      desc += " " + child.text.trim();
+    } else {
+      switch(child.localName) {
+        case 'p' :
+            desc += "\n" + child.text.trim() + "\n";
+          break;
+        case 'pre' :
+          // 5 spaces indent
+          desc += "\n     Code ...";
+          break;
+        case 'code' :
+          desc += " [" + child.text.trim() + "]";
+          break;
+        case 'br' :
+            desc += "\n";
+          break;
+        case 'ul' :
+          desc += "\n";
+            child.querySelectorAll('li').forEach((Element li) {
+              desc += "* ${li.text.trim().replaceAll('\s+', '\s')}\n";
+            });
+        break;
+        case 'a' :
+            desc += " [${child.text.replaceAll('\n', '').trim().replaceAll('\s+', '\s')}]{${child.attributes['href']}}";
+          break;
+        default :
+          print(child.localName);
+          break;
+      }
+    }
+  });
+  return desc.replaceAll('\n', '\n  /// ');
+}
+
 main() async {
   sink.write(header);
 
   Map<String,Map> chartUrls = {
-    'https://developers.google.com/chart/interactive/docs/gallery/annotationchart' : {'className': 'AnnotationChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/areachart' : {'className': 'AreaChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/barchart' : {'className': 'BarChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/bubblechart' : {'className': 'BubbleChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/calendar' : {'className': 'CalendarOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/candlestickchart' : {'className': 'CandlestickChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/columnchart' : {'className': 'ColumnChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/combochart' : {'className': 'ComboChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/gauge' : {'className': 'GaugeOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/geochart' : {'className': 'GeoChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/histogram' : {'className': 'HistogramOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/linechart' : {'className': 'LineChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/map' : {'className': 'MapOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/orgchart' : {'className': 'OrgChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/piechart' : {'className': 'PieChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/sankey' : {'className': 'SankeyOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/scatterchart' : {'className': 'ScatterChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/steppedareachart' : {'className': 'SteppedAreaChartOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/table' : {'className': 'TableOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/timeline' : {'className': 'TimelineOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/treemap' : {'className': 'TreeMapOptions'},
-    'https://developers.google.com/chart/interactive/docs/gallery/wordtree' : {'className': 'WordtreeOptions'}
+    'https://developers.google.com/chart/interactive/docs/gallery/annotationchart' : {'className': 'AnnotationChartOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/areachart' : {'className': 'AreaChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/barchart' : {'className': 'BarChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/bubblechart' : {'className': 'BubbleChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/calendar' : {'className': 'CalendarOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/candlestickchart' : {'className': 'CandlestickChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/columnchart' : {'className': 'ColumnChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/combochart' : {'className': 'ComboChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/gauge' : {'className': 'GaugeOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/geochart' : {'className': 'GeoChartOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/histogram' : {'className': 'HistogramOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/linechart' : {'className': 'LineChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/map' : {'className': 'MapOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/orgchart' : {'className': 'OrgChartOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/piechart' : {'className': 'PieChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/sankey' : {'className': 'SankeyOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/scatterchart' : {'className': 'ScatterChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/steppedareachart' : {'className': 'SteppedAreaChartOptions', 'coreChart': true},
+    'https://developers.google.com/chart/interactive/docs/gallery/table' : {'className': 'TableOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/timeline' : {'className': 'TimelineOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/treemap' : {'className': 'TreeMapOptions', 'coreChart': false},
+    'https://developers.google.com/chart/interactive/docs/gallery/wordtree' : {'className': 'WordtreeOptions', 'coreChart': false}
   };
 
   for(String url in chartUrls.keys) {
     await http.get(url).then((http.Response r) {
       Document doc = parse(r.body);
       final String chartClassName = chartUrls[url]['className'];
+      print(chartClassName);
+      final bool isCoreChart = chartUrls[url]['coreChart'];
       charts.add(chartClassName);
-      sink.write("\n\nclass ${chartClassName} {");
+      sink.write("\n\nclass ${chartClassName}${isCoreChart ? ' extends CoreChartOptions' : ''} {");
       doc.querySelectorAll('table').forEach((Element e) {
         Element prev = e.previousElementSibling;
         if(prev.localName == 'h2') {
           String type = prev.querySelector('a').attributes['id'];
           switch(type) {
             case "Configuration_Options" :
-                for(String opt in parseOptions(e)) {
-                  optionToCharts.putIfAbsent(opt, () => []).add(chartClassName);
-                }
+              parseOptions(e).forEach((String opt, String desc) {
+                optionToCharts.putIfAbsent(opt, () => []).add(chartClassName);
+              });
               break;
             case "Methods" :
               //parseMethods(e);
@@ -94,8 +138,8 @@ main() async {
   }
 }
 
-List<String> parseOptions(Element table) {
-  List<String> optionsList = [];
+Map<String,String> parseOptions(Element table) {
+  Map<String,String> optionsList = {};
   //Map<String,String> options = {};
   table.querySelectorAll('tr').skip(1).forEach((Element e) {
     List<Element> tdList = e.querySelectorAll('td');
@@ -103,8 +147,23 @@ List<String> parseOptions(Element table) {
       String name = tdList.first.text.replaceAll('.', '_');
       String typeString = tdList.elementAt(1).text.toLowerCase();
       String defaultValue = tdList.elementAt(2).text;
-
-      optionsList.add(name);
+      Element descriptionElement = tdList.elementAt(3);
+      String descriptionText = getDescription(descriptionElement);
+      // descriptionElement.querySelectorAll('ul').forEach((Element e) => e.remove());
+      // descriptionElement.querySelectorAll('code').forEach((Element e) => e.remove());
+      // String descriptionText = descriptionElement.text.trim();
+      /*
+      switch(descriptionNode.nodeType) {
+        case Node.ELEMENT_NODE :
+          descriptionText = ;
+          break;
+        case Node.TEXT_NODE :
+          descriptionText = descriptionNode.text.split('\n').first;
+          break;
+      }
+      */
+      //print('\t$name <--> "$descriptionText"\n');
+      optionsList[name] = descriptionText;
       if(options.add(name)) {
         // print('New Option: $name');
       }
@@ -115,9 +174,7 @@ List<String> parseOptions(Element table) {
       }
 
       var type = 'var';
-      if(defaultValue == 'auto' || defaultValue == null) {
-
-      } else {
+      if(defaultValue != 'auto' && defaultValue != null) {
         switch(typeString) {
           case 'number':
             type = 'num';
@@ -149,30 +206,15 @@ List<String> parseOptions(Element table) {
             type = 'DateTime';
             break;
           default :
-            //print(type);
+            print('Unknown Type: $typeString');
             break;
         }
       }
-      sink.write("\n  $type $name;");
-      // options[name] = defaultValue;
-      // print(tdList.first.text);
-      /*
-      tdList.forEach((Element td) {
-        List<Element> codeList = td.querySelectorAll('code');
-        if(codeList.isNotEmpty) {
-          codeList.forEach((Element code) {
-            print(code.text);
-          });
-        }
-      });
-      */
+      // replaceAll('\n\n', '<br>').replaceAll('\n', '').replaceAll('<br>', '\n').replaceAll('\n', '\n  /// ')
+      sink.write("\n  /// ${descriptionText}");
+      sink.write("\n  $type $name;\n");
     }
   });
-  /*
-  options.forEach((String k, String v) {
-    print('\t\t$k: $v,');
-  });
-  */
 
   return optionsList;
 }
