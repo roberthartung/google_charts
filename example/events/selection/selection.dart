@@ -3,7 +3,7 @@
 
 import 'dart:html';
 import 'package:google_visualization_api/google_visualization_api.dart'
-    show PieChart, DataTable, arrayToDataTable, MouseOverEvent, ClickEvent;
+    show PieChart, DataTable, arrayToDataTable, MouseEventArgs, ClickEventArgs;
 
 void main() {
   PieChart.load().then((_) {
@@ -25,12 +25,12 @@ void main() {
       print('selection...');
     }
 
-    onMouseOver(MouseOverEvent properties) {
-      print('MouseOver at row/column: ${properties.row}/${properties.column}');
+    onMouseOver(MouseEventArgs args) {
+      print('MouseOver at row/column: ${args.row}/${args.column}');
     }
 
-    onClick(ClickEvent properties) {
-      print('Click at target ${properties.targetId}');
+    onClick(ClickEventArgs args) {
+      print('Click at target ${args.targetId}');
     }
 
     chart.onSelect.listen(onSelect);

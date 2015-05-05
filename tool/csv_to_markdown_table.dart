@@ -1,7 +1,4 @@
 import 'dart:io';
-import 'package:args/args.dart';
-
-ArgResults argResults;
 
 void main(List<String> arguments) {
   File csvFile = new File(arguments[0]);

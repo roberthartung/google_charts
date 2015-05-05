@@ -42,3 +42,5 @@ Following Events are supported by the different chart types:
 | Timeline | x | x |  |  | x | x | x |  |  |  |  |  |  |
 | TreeMap | x | x |  |  |  | x | x |  |  |  |  |  | x |
 | WordTree | x | x |  |  |  |  |  |  |  |  |  |  |  |
+
+*) core chart

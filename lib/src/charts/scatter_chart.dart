@@ -1,6 +1,6 @@
 part of google_visualization_api.charts;
 
-class ScatterChart extends Chart with CoreChart {
+class ScatterChart extends Chart {
   ScatterChart(Element e) : super._(e, "ScatterChart", vis) {
 
   }

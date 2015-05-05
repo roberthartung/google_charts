@@ -1,6 +1,6 @@
 part of google_visualization_api.charts;
 
-class SankeyDiagram extends Chart with CoreChart, Selection {
+class SankeyDiagram extends Chart with CoreSelection {
   SankeyDiagram(Element e) : super._(e, "Sankey", vis) {
 
   }

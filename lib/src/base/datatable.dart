@@ -81,6 +81,12 @@ class DataTable {
     return jsProxy.callMethod('getColumnRange', [columnIndex]) as JsObject;
   }
 
+  /// Returns the number of columns in the table.
+  int getNumberOfColumns() {
+    return jsProxy.callMethod('getNumberOfColumns');
+  }
+
+  /// Returns the number of rows in the table.
   int getNumberOfRows() {
     return jsProxy.callMethod('getNumberOfRows');
   }
@@ -91,5 +97,9 @@ class DataTable {
 
   void setValue(int rowIndex, int columnIndex, value) {
     return jsProxy.callMethod('setValue', [rowIndex, columnIndex, value]);
+  }
+
+  getValue(int rowIndex, int columnIndex) {
+    return jsProxy.callMethod('getValue', [rowIndex, columnIndex]);
   }
 }

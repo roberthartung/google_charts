@@ -1,45 +1,34 @@
 part of google_visualization_api.base;
 
-abstract class Event {
+/// Baseic event interface shared across all chart events
+abstract class ChartEventArgs {
 
 }
 
-class SelectEvent implements Event {
+class ErrorEventArgs implements ChartEventArgs {
+  final id;
 
+  final message;
+
+  ErrorEventArgs(this.id, this.message);
 }
 
-class ReadyEvent implements Event {
-
-}
-
-class ErrorEvent implements Event {
-
-}
-
-class MouseOverEvent implements Event {
+class MouseEventArgs implements ChartEventArgs {
   final row;
 
   final column;
 
-  MouseOverEvent(this.row, this.column);
+  MouseEventArgs(this.row, this.column);
 }
 
-class MouseOutEvent implements Event {
-  final row;
-
-  final column;
-
-  MouseOutEvent(this.row, this.column);
-}
-
-class ClickEvent implements Event {
+class ClickEventArgs implements ChartEventArgs {
   final targetId;
 
-  ClickEvent(this.targetId);
+  ClickEventArgs(this.targetId);
 }
 
 /// ...
-class EventWrapper<E extends Event> {
+class EventWrapper<E extends ChartEventArgs> {
   JsObject _jsChart;
 
   String _eventName;
@@ -51,8 +40,12 @@ class EventWrapper<E extends Event> {
 
   Function _reviver;
 
-  EventWrapper(this._jsChart, this._eventName, E reviver(p)) {
-    this._reviver = (_window, properties) => _streamController.add(reviver(properties));
+  EventWrapper(this._jsChart, this._eventName, [E reviver(p)]) {
+    if(reviver == null) {
+      this._reviver = (_window, properties) => _streamController.add(null);
+    } else {
+      this._reviver = (_window, properties) => _streamController.add(reviver(properties));
+    }
     _streamController = new StreamController.broadcast(onListen: () => _onListen(_eventName), onCancel: () => _onCancel(_eventName));
   }
 

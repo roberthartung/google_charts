@@ -35,7 +35,7 @@ part 'charts/timeline.dart';
 part 'charts/treemap.dart';
 part 'charts/wordtree.dart';
 
-/// Chart base
+/// Chart base that has no events
 abstract class Chart {
   /// The instance of the chart in the javascript scope
   JsObject jsChart;
@@ -71,11 +71,83 @@ abstract class Chart {
   }
 }
 
-abstract class Selection {
+// +select event
+abstract class _SelectChart extends Chart {
+  Stream get onSelect => _selectEventWrapper.onEvent;
+  EventWrapper _selectEventWrapper;
+
+  _SelectChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _selectEventWrapper = new EventWrapper(jsChart, 'select');
+  }
+}
+
+// +ready event
+abstract class _SelectReadyChart extends _SelectChart {
+  Stream get onReady => _readyEventWrapper.onEvent;
+  EventWrapper _readyEventWrapper;
+
+  _SelectReadyChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _readyEventWrapper = new EventWrapper(jsChart, 'ready');
+  }
+}
+
+// +error event
+abstract class _SelectReadyErrorChart extends _SelectReadyChart {
+  Stream<ErrorEventArgs> get onError => _errorEventWrapper.onEvent;
+  EventWrapper<ErrorEventArgs> _errorEventWrapper;
+
+  _SelectReadyErrorChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _errorEventWrapper = new EventWrapper<ErrorEventArgs>(jsChart, 'error', (p) => new ErrorEventArgs(p['id'], p['message']));
+  }
+}
+
+// +mouse events
+abstract class _SelectReadyErrorMouseChart extends _SelectReadyErrorChart {
+  Stream<MouseEventArgs> get onMouseOver => _mouseOverWrapper.onEvent;
+  EventWrapper<MouseEventArgs> _mouseOverWrapper;
+
+  Stream<MouseEventArgs> get onMouseOut => _mouseOutWrapper.onEvent;
+  EventWrapper<MouseEventArgs> _mouseOutWrapper;
+
+  _SelectReadyErrorMouseChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _mouseOverWrapper = new EventWrapper<MouseEventArgs>(jsChart, 'onmouseover', (p) => new MouseEventArgs(p['row'], p['column']));
+    _mouseOutWrapper = new EventWrapper<MouseEventArgs>(jsChart, 'onmouseout', (p) => new MouseEventArgs(p['row'], p['column']));
+  }
+}
+
+// +click event
+abstract class _SelectReadyErrorMouseClickChart extends _SelectReadyErrorMouseChart {
+  Stream<ClickEventArgs> get onClick => _clickWrapper.onEvent;
+  EventWrapper<ClickEventArgs> _clickWrapper;
+
+  _SelectReadyErrorMouseClickChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _clickWrapper = new EventWrapper<ClickEventArgs>(jsChart, 'click', (p) => new ClickEventArgs(p['targetID']));
+  }
+}
+
+// +animationfinish event
+abstract class _SelectReadyErrorMouseClickAnimationChart extends _SelectReadyErrorMouseClickChart {
+  Stream get onAnimationFinish => _animationFinishWrapper.onEvent;
+  EventWrapper _animationFinishWrapper;
+
+  _SelectReadyErrorMouseClickAnimationChart._(element, String chartName, JsObject ctx) : super._(element, chartName, vis) {
+    _animationFinishWrapper = new EventWrapper(jsChart, 'animationfinish');
+  }
+}
+
+abstract class CoreChart extends _SelectReadyErrorMouseClickAnimationChart {
+  CoreChart._(element, String chartName) : super._(element, chartName, vis);
+
+  void getImageURI() {
+
+  }
+}
+
+abstract class CoreSelection {
   JsObject get jsChart;
 
-  List getSelection() {
-    return null;
+  getSelection() {
+    return jsChart.callMethod('getSelection');
   }
 
   void setSelection() {
@@ -83,7 +155,7 @@ abstract class Selection {
   }
 }
 
-abstract class Actions {
+abstract class CoreActions {
   JsObject get jsChart;
 
   void getAction();
@@ -91,11 +163,4 @@ abstract class Actions {
   void setAction();
 
   void removeAction();
-}
-
-abstract class CoreChart {
-  ///
-  void getImageURI() {
-
-  }
 }
