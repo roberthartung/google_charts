@@ -23,13 +23,14 @@ IOSink doc_sink = new File('./doc/chart_options.md').openWrite();
 
 String getDescription(Element td) {
   String desc = "";
-  td.children.forEach((Element child) {
-    if(child.nodeType == Node.TEXT_NODE) {
-      desc += " " + child.text.trim();
+  td.nodes.forEach((Node node) {
+    if(node.nodeType == Node.TEXT_NODE) {
+      desc += " " + node.text.trim().replaceAll(new RegExp(r'\n\s*'), '');
     } else {
+      Element child = node as Element;
       switch(child.localName) {
         case 'p' :
-            desc += "\n" + child.text.trim() + "\n";
+            desc += "\n" + child.text.trim().replaceAll(new RegExp(r'\n\s*'), '') + "\n";
           break;
         case 'pre' :
           // 5 spaces indent
@@ -44,11 +45,11 @@ String getDescription(Element td) {
         case 'ul' :
           desc += "\n";
             child.querySelectorAll('li').forEach((Element li) {
-              desc += "* ${li.text.trim().replaceAll('\s+', '\s')}\n";
+              desc += "* ${li.text.trim().replaceAll(new RegExp(r'\n\s*'), '\n  ')}\n";
             });
         break;
         case 'a' :
-            desc += " [${child.text.replaceAll('\n', '').trim().replaceAll('\s+', '\s')}]{${child.attributes['href']}}";
+            desc += " [${child.text.replaceAll('\n', '').trim().replaceAll(new RegExp(r'\s\s*'), '\s')}](${child.attributes['href']})";
           break;
         default :
           print(child.localName);
