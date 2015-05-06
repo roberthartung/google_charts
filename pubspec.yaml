@@ -5,6 +5,12 @@ description: A Dart (wrapper) package to access Google's Visualization API.
 homepage: https://github.com/roberthartung/google_visualization_api
 dependencies:
   browser: '>=0.10.0+2 <0.11.0'
+  polymer: any
 dev_dependencies:
   html: any
   http: any
+transformers:
+- polymer:
+    entry_points:
+    - example/polymer/table.html
+    - example/polymer/donutchart.html
