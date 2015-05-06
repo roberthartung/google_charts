@@ -77,7 +77,7 @@ class DataTable {
   /// Adds a new column to the data table, and returns the index of the new
   /// column. All the cells of the new column are assigned a null value.
   num addColumn(type_or_description_object, [String label, String id]) {
-    if (type_or_description_object is ColumnDescriptionObject) {
+    if (type_or_description_object is ColumnDescriptionObject || type_or_description_object is Map) {
       return jsProxy.callMethod(
           'addColumn', [new JsObject.jsify(type_or_description_object)]);
     } else if (type_or_description_object is String) {
