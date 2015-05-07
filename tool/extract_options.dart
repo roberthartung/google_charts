@@ -80,7 +80,7 @@ final List<Chart> charts = [
 IOSink sink = new File('./lib/gen/chart_options.dart').openWrite();
 IOSink sink_enums = new File('./lib/gen/chart_options/enums.dart').openWrite();
 IOSink doc_sink = new File('./doc/chart_options.md').openWrite();
-
+/*
 void printTree(Map tree, [Set<String> parentCharts=null, int indent = 0]) {
   tree.forEach((String key, value) {
     if(value is Map) {
@@ -104,7 +104,7 @@ void printTree(Map tree, [Set<String> parentCharts=null, int indent = 0]) {
     }
   });
 }
-
+*/
 main() async {
   sink.write(header);
 
@@ -112,9 +112,8 @@ main() async {
     await http.get(urlPrefix + chart.name).then((http.Response r) => handleResponse(r, chart));
   }
 
-  print(optionsTree);
-
-  printTree(optionsTree);
+  //print(optionsTree);
+  //printTree(optionsTree);
 
   //Map<String, dynamic> optionsTree = {};
 
@@ -196,6 +195,13 @@ void handleResponse(http.Response r, Chart chart) {
         case "Configuration_Options":
           print(chart.className);
           parseConfigurationOptions(e, chart);
+          sink.write('class ${chart.className}Options {\n');
+          chart.options.forEach((ConfigurationOption option) {
+            sink.write("  /// ${getDescription(option.description)}\n");
+            sink.write("  var ${option.name.replaceAll('.', '_')};\n");
+          });
+          // TODO(rh)
+          sink.write("}\n\n");
           /*parseOptions(e).forEach((String opt, String desc) {
             optionToCharts.putIfAbsent(opt, () => []).add(chartClassName);
           });
@@ -211,14 +217,13 @@ void handleResponse(http.Response r, Chart chart) {
       }
     }
   });
-  sink.write("\n}");
 }
 
 final Map<String, dynamic> optionsTree = {};
 
 void parseConfigurationOptions(Element table, Chart chart) {
   // Get all table rows from table and skip header
-  final List<String> optionNames = [];
+  //final List<String> optionNames = [];
   table.querySelectorAll('tr').skip(1).forEach((Element e) {
     // Get td list
     List<Element> tdList = e.querySelectorAll('td');
@@ -226,32 +231,17 @@ void parseConfigurationOptions(Element table, Chart chart) {
     if (tdList.isNotEmpty) {
       // Get text from td
       String name = tdList.first.text;
-      optionNames.add(name);
+      //optionNames.add(name);
       String typeString = tdList.elementAt(1).text;
       String defaultValue = tdList.elementAt(2).text;
       Element descriptionElement = tdList.elementAt(3);
-      // ...
-      /*
-      ConfigurationOption option = configurationOptions[name];
-      if(option != null) {
-        // Skip some properties
-        if(name != 'height' && name != 'width' && name != 'fontSize' && name != 'fontName') {
-          if(option.type.toLowerCase() != typeString.toLowerCase()) {
-            print("\tType string different for $name (${option.type} != $typeString)");
-          }
-          if(option.defaultValue.toLowerCase() != defaultValue.toLowerCase()) {
-            print("\tDefault value different for $name (${option.defaultValue} != $defaultValue)");
-          }
-        }
-      } else {
-        option = new ConfigurationOption(name, typeString, defaultValue, descriptionElement);
-        configurationOptions[name] = option;
-      }
+
+      ConfigurationOption option = new ConfigurationOption(name, typeString, defaultValue, descriptionElement);
       chart.options.add(option);
-      */
     }
   });
 
+  /*
   optionNames.forEach((String option) {
     List<String> keys = option.split('.');
     Iterator<String> it = keys.iterator;
@@ -261,7 +251,7 @@ void parseConfigurationOptions(Element table, Chart chart) {
     }
     pointer.putIfAbsent('_charts', () => new Set()).add(chart.className);
   });
-
+  */
   // String descriptionText = getDescription(descriptionElement);
 }
 
