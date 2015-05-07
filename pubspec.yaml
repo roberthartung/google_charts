@@ -1,5 +1,5 @@
 name: google_visualization_api
-version: 0.0.1
+version: 0.0.2
 author: Robert Hartung <robert.w.hartung@gmail.com>
 description: A Dart (wrapper) package to access Google's Visualization API.
 homepage: https://github.com/roberthartung/google_visualization_api
