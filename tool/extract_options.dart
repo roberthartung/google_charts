@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'dart:io';
-import 'dart:collection';
 
 /// Representation of a Chart with it's options etc
 class Chart {
@@ -19,6 +18,7 @@ class Chart {
   Chart(this.name, this.className, [this.isCoreChart = true]);
 }
 
+/// Option for one chart
 class ConfigurationOption {
   String name;
 
@@ -33,8 +33,10 @@ class ConfigurationOption {
 
 final Map<String,ConfigurationOption> configurationOptions = {};
 
+///
 class Method {}
 
+///
 class Event {}
 
 /// Header
@@ -80,11 +82,10 @@ final List<Chart> charts = [
 IOSink sink = new File('./lib/gen/chart_options.dart').openWrite();
 IOSink sink_enums = new File('./lib/gen/chart_options/enums.dart').openWrite();
 IOSink doc_sink = new File('./doc/chart_options.md').openWrite();
-/*
 void printTree(Map tree, [Set<String> parentCharts=null, int indent = 0]) {
   tree.forEach((String key, value) {
     if(value is Map) {
-      if(value.containsKey('_charts')) {
+      if(value.containsKey('_charts') && false) {
         if(parentCharts != null) {
           Set diffA = parentCharts.difference(value['_charts']);
           Set diffB = value['_charts'].difference(parentCharts);
@@ -104,7 +105,6 @@ void printTree(Map tree, [Set<String> parentCharts=null, int indent = 0]) {
     }
   });
 }
-*/
 main() async {
   sink.write(header);
 
@@ -112,27 +112,41 @@ main() async {
     await http.get(urlPrefix + chart.name).then((http.Response r) => handleResponse(r, chart));
   }
 
-  //print(optionsTree);
-  //printTree(optionsTree);
-
-  //Map<String, dynamic> optionsTree = {};
-
-  /*
-  void appendToTree() {
-
+  Set<String> getChartNames(Map m) {
+    Set s = new Set();
+    m.forEach((String key, val) {
+      if(key == '_charts') {
+        s.addAll(val.keys);
+      } else if(val is Map) {
+        s.addAll(getChartNames(val));
+      }
+    });
+    return s;
   }
 
-  options.forEach((String option) {
-    List<String> keys = option.split('.');
-    Iterator<String> it = keys.iterator;
-    Map pointer = optionsTree;
-    while (it.moveNext()) {
-      pointer = pointer.putIfAbsent(it.current, () => {});
+  List<String> flatOptionNames = [];
+  optionsTree.forEach((String key, Map val) {
+    // Charts Only
+    if(val.keys.length == 1) {
+      flatOptionNames.add(key);
+      print('Flat: $key');
+    } else {
+      Set s = new Set();
+      if(val.containsKey('_charts')) {
+        s.addAll(val['_charts'].keys);
+      }
+      s.addAll(getChartNames(val));
+      if(s.length == 1) {
+        flatOptionNames.add(key);
+        print('Single Chart: $key');
+      }
     }
   });
 
-  print(optionsTree);
-  */
+  for(var k in flatOptionNames) {
+    optionsTree.remove(k);
+  }
+  printTree(optionsTree);
 }
 
 String getDescription(Element td) {
@@ -223,7 +237,7 @@ final Map<String, dynamic> optionsTree = {};
 
 void parseConfigurationOptions(Element table, Chart chart) {
   // Get all table rows from table and skip header
-  //final List<String> optionNames = [];
+  final List<String> optionNames = [];
   table.querySelectorAll('tr').skip(1).forEach((Element e) {
     // Get td list
     List<Element> tdList = e.querySelectorAll('td');
@@ -231,28 +245,20 @@ void parseConfigurationOptions(Element table, Chart chart) {
     if (tdList.isNotEmpty) {
       // Get text from td
       String name = tdList.first.text;
-      //optionNames.add(name);
       String typeString = tdList.elementAt(1).text;
       String defaultValue = tdList.elementAt(2).text;
       Element descriptionElement = tdList.elementAt(3);
-
-      ConfigurationOption option = new ConfigurationOption(name, typeString, defaultValue, descriptionElement);
-      chart.options.add(option);
+      //ConfigurationOption option = new ConfigurationOption(name, typeString, defaultValue, descriptionElement);
+      //chart.options.add(option);
+      List<String> keys = name.split('.');
+      Iterator<String> it = keys.iterator;
+      Map pointer = optionsTree;
+      while (it.moveNext()) {
+        pointer = pointer.putIfAbsent(it.current, () => {});
+      }
+      pointer.putIfAbsent('_charts', () => {})[chart.className] = {'type': typeString, 'default': defaultValue, 'description': getDescription(descriptionElement)};
     }
   });
-
-  /*
-  optionNames.forEach((String option) {
-    List<String> keys = option.split('.');
-    Iterator<String> it = keys.iterator;
-    Map pointer = optionsTree;
-    while (it.moveNext()) {
-      pointer = pointer.putIfAbsent(it.current, () => {});
-    }
-    pointer.putIfAbsent('_charts', () => new Set()).add(chart.className);
-  });
-  */
-  // String descriptionText = getDescription(descriptionElement);
 }
 
   /*

@@ -6,6 +6,6 @@ class WordTree extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['wordtree']);
+    return Chart.load(packages: ['wordtree']);
   }
 }

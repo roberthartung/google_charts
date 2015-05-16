@@ -6,6 +6,6 @@ class SankeyDiagram extends Chart with CoreSelection {
   }
 
   static Future load() {
-    return Chart.load(['sankey']);
+    return Chart.load(packages: ['sankey']);
   }
 }

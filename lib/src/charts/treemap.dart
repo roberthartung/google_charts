@@ -6,6 +6,6 @@ class TreeMap extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['treemap']);
+    return Chart.load(packages: ['treemap']);
   }
 }

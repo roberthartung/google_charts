@@ -6,6 +6,6 @@ class PieChart extends _SelectReadyErrorMouseClickAnimationChart with CoreSelect
   }
 
   static Future load() {
-    return Chart.load(['corechart']);
+    return Chart.load(packages: ['corechart']);
   }
 }

@@ -6,6 +6,6 @@ class Timeline extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['timeline']);
+    return Chart.load(packages: ['timeline']);
   }
 }

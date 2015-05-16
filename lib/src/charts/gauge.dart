@@ -6,6 +6,6 @@ class Gauge extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['gauge']);
+    return Chart.load(packages: ['gauge']);
   }
 }

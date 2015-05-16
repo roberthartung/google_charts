@@ -10,6 +10,6 @@ class AnnotationChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['annotationchart']);
+    return Chart.load(packages: ['annotationchart']);
   }
 }

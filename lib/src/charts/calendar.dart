@@ -6,6 +6,6 @@ class Calendar extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['calendar']);
+    return Chart.load(packages: ['calendar']);
   }
 }

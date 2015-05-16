@@ -7,7 +7,7 @@ class ColumnChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['corechart']);
+    return Chart.load(packages: ['corechart']);
   }
 }
 
@@ -24,6 +24,6 @@ class Bar extends Chart {
   /// chart.draw(data, google.charts.Column.convertOptions(options));
 
   static Future load() {
-    return Chart.load(['bar']);
+    return Chart.load(packages: ['bar']);
   }
 }

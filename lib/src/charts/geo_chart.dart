@@ -6,6 +6,6 @@ class GeoChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['geochart']);
+    return Chart.load(packages: ['geochart']);
   }
 }

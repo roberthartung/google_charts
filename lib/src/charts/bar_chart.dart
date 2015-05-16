@@ -6,6 +6,6 @@ class BarChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['bar']);
+    return Chart.load(packages: ['bar']);
   }
 }

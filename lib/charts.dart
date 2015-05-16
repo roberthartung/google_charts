@@ -8,32 +8,34 @@ import 'dart:async';
 import 'dart:js';
 
 /// Internal
-import 'google_visualization_api_base.dart';
-import 'google_visualization_api_static.dart';
+import 'base.dart';
+import 'static.dart';
+import 'events.dart';
 
 /// Parts
-part 'charts/annotation_chart.dart';
-part 'charts/area_chart.dart';
-part 'charts/bar_chart.dart';
-part 'charts/bubble_chart.dart';
-part 'charts/calendar.dart';
-part 'charts/candlestick_chart.dart';
-part 'charts/column_chart.dart';
-part 'charts/combo_chart.dart';
-part 'charts/gauge.dart';
-part 'charts/geo_chart.dart';
-part 'charts/histogram.dart';
-part 'charts/line_chart.dart';
-part 'charts/map.dart';
-part 'charts/org_chart.dart';
-part 'charts/pie_chart.dart';
-part 'charts/sankey_diagram.dart';
-part 'charts/scatter_chart.dart';
-part 'charts/stepped_area_chart.dart';
-part 'charts/table.dart';
-part 'charts/timeline.dart';
-part 'charts/treemap.dart';
-part 'charts/wordtree.dart';
+part 'src/charts/wrapper.dart';
+part 'src/charts/annotation_chart.dart';
+part 'src/charts/area_chart.dart';
+part 'src/charts/bar_chart.dart';
+part 'src/charts/bubble_chart.dart';
+part 'src/charts/calendar.dart';
+part 'src/charts/candlestick_chart.dart';
+part 'src/charts/column_chart.dart';
+part 'src/charts/combo_chart.dart';
+part 'src/charts/gauge.dart';
+part 'src/charts/geo_chart.dart';
+part 'src/charts/histogram.dart';
+part 'src/charts/line_chart.dart';
+part 'src/charts/map.dart';
+part 'src/charts/org_chart.dart';
+part 'src/charts/pie_chart.dart';
+part 'src/charts/sankey_diagram.dart';
+part 'src/charts/scatter_chart.dart';
+part 'src/charts/stepped_area_chart.dart';
+part 'src/charts/table.dart';
+part 'src/charts/timeline.dart';
+part 'src/charts/treemap.dart';
+part 'src/charts/wordtree.dart';
 
 /// Chart base that has no events
 abstract class Chart {
@@ -46,10 +48,10 @@ abstract class Chart {
     // final data = [['Label', 'Value'], ['A', 0]];
     // var jsTable = ns.callMethod('arrayToDataTable', [new JsObject.jsify(data)]);
     var jsOptions = options == null ? null : new JsObject.jsify(options);
-    if(data is DataTable) {
+    if(data is DataTable || data is DataView) {
       jsChart.callMethod('draw', [data.jsProxy, jsOptions]);
     } else {
-      print('err');
+      throw new ArgumentError.value(data, 'data');
     }
   }
 
@@ -57,15 +59,23 @@ abstract class Chart {
     jsChart.callMethod('clearChart');
   }
 
-  static Future load(List<String> packages, [String version = "1"]) {
+  static Future load({List<String> packages, String version: "1"}) {
     Completer c = new Completer();
+    JsObject args;
+    if(packages != null) {
+      args = new JsObject.jsify({
+        'packages': packages,
+        'callback': new JsFunction.withThis(c.complete)
+      });
+    } else {
+      args = new JsObject.jsify({
+        'callback': new JsFunction.withThis(c.complete)
+      });
+    }
     context["google"].callMethod('load', [
       'visualization',
       version,
-      new JsObject.jsify({
-        'packages': packages,
-        'callback': new JsFunction.withThis(c.complete)
-      })
+      args
     ]);
     return c.future;
   }

@@ -6,6 +6,6 @@ class CandlestickChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['corechart']);
+    return Chart.load(packages: ['corechart']);
   }
 }

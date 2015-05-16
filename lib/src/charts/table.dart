@@ -6,6 +6,6 @@ class Table extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['table']);
+    return Chart.load(packages: ['table']);
   }
 }

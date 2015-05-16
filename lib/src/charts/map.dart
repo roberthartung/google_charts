@@ -6,6 +6,6 @@ class Map extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['map']);
+    return Chart.load(packages: ['map']);
   }
 }

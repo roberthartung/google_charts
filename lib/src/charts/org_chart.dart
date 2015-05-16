@@ -6,6 +6,6 @@ class OrgChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['orgchart']);
+    return Chart.load(packages: ['orgchart']);
   }
 }

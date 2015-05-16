@@ -6,6 +6,6 @@ class SteppedAreaChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['corechart']);
+    return Chart.load(packages: ['corechart']);
   }
 }

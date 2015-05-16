@@ -6,7 +6,7 @@ class ScatterChart extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['corechart']);
+    return Chart.load(packages: ['corechart']);
   }
 }
 
@@ -17,6 +17,6 @@ class Scatter extends Chart {
   }
 
   static Future load() {
-    return Chart.load(['scatter'], "1.1");
+    return Chart.load(packages: ['scatter'], version: "1.1");
   }
 }
