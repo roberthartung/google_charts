@@ -1,5 +1,5 @@
 name: google_visualization_api
-version: 0.1.0
+version: 0.1.1
 author: Robert Hartung <robert.w.hartung@gmail.com>
 description: A package to call Google's Visualization / Charts API directly from Dart.
 homepage: https://github.com/roberthartung/google_visualization_api

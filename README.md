@@ -4,13 +4,18 @@ A library to make it easy to use [Google's visualization api][api]
 
 ## Usage
 
-You can use the api as you would do in the javascript version like this:
+You can use the api almost as you would do in the javascript version like this:
 
     LineChart.load().then((_) {
       LineChart chart = new LineChart(...);
       DataTable data = new DataTable(...);
       chart.draw(data);
     });
+
+Make sure you use each chart's `load` method that will load the correct chart packages for you automatically.
+When using the API itself you can use `Chart.load()` to only load the API without any packages.
+
+
 
 [api]: https://developers.google.com/chart/
 
