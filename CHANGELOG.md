@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.1+1
+- README updated
+
 ## 0.1.1
 - Moved the Bar class to bar_chart.dart
 - Fixed a bug in bar_chart.dart where BarChart required the bar package instead of corechart.
