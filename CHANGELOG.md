@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.2
+- #5: Diff charts implemented and examples added
+
 ## 0.1.1+1
 - README updated
 

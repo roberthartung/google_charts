@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffChart: PieChart example</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  </head>
+
+  <body>
+    <span id='piechart_before' style='width: 450px; display: inline-block'></span>
+    <span id='piechart_after' style='width: 450px; display: inline-block'></span>
+    <br>
+    <span id='piechart_diff' style='width: 450px; position: absolute; left: 250px'></span>
+    <script type="application/dart" src="pie_chart.dart"></script>
+    <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

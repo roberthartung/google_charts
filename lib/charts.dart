@@ -81,6 +81,13 @@ abstract class Chart {
   }
 }
 
+abstract class _DiffChart {
+  JsObject get jsChart;
+  DataTable computeDiff(DataTable chartA, DataTable chartB) {
+    return new DataTable.fromJsObject(jsChart.callMethod('computeDiff', [chartA.jsProxy, chartB.jsProxy]));
+  }
+}
+
 // +select event
 abstract class _SelectChart extends Chart {
   Stream get onSelect => _selectEventWrapper.onEvent;
