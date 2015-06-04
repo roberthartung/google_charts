@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+- Package renamed to `google_charts`
+- Added support for `Material Charts` of type Line, Bar and Scatter
+- Material Charts examples added
+- Fixed #6
+
 ## 0.1.2+1
 
 - Updated readme to show deprecated message! New Version 0.1.3 will be called `google_charts`.

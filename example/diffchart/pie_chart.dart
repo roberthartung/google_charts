@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'package:google_visualization_api/google_visualization_api.dart';
+import 'package:google_charts/google_charts.dart';
 
 void main() {
   PieChart.load().then((_) {

@@ -1,6 +1,6 @@
 /// Thanks to [Teddy Clark] for making me aware of this issue
 
-import 'package:google_visualization_api/google_visualization_api.dart'
+import 'package:google_charts/google_charts.dart'
     show Table, DataTable;
 import 'package:polymer/polymer.dart';
 

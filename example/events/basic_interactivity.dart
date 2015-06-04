@@ -2,7 +2,7 @@
 /// https://developers.google.com/chart/interactive/docs/gallery/gauge#Example
 
 import 'dart:html';
-import 'package:google_visualization_api/google_visualization_api.dart'
+import 'package:google_charts/google_charts.dart'
     show PieChart, DataTable, arrayToDataTable, SelectEvent;
 
 void main() {

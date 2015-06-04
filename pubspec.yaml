@@ -1,7 +1,7 @@
-name: google_visualization_api
-version: 0.1.2+1
+name: google_charts
+version: 0.1.3
 author: Robert Hartung <robert.w.hartung@gmail.com>
-description: DEPRECATED! Google's Visualization / Charts API wrapper.
+description: Google Charts API Wrapper Classes.
 homepage: https://github.com/roberthartung/google_visualization_api
 dependencies:
   browser: '>=0.10.0+2 <0.11.0'

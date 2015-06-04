@@ -2,7 +2,7 @@
 /// https://developers.google.com/chart/interactive/docs/gallery/histogram#Example1
 
 import 'dart:html';
-import 'package:google_visualization_api/google_visualization_api.dart' as api;
+import 'package:google_charts/google_charts.dart' as api;
 
 void main() {
   api.Map.load().then((_) {

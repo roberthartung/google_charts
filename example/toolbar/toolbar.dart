@@ -1,7 +1,7 @@
 import 'dart:html';
-import 'package:google_visualization_api/charts.dart';
-import 'package:google_visualization_api/static.dart' show drawToolbar;
-import 'package:google_visualization_api/base.dart' show Query;
+import 'package:google_charts/visualization.dart' show PieChart;
+import 'package:google_charts/static.dart' show drawToolbar;
+import 'package:google_charts/base.dart' show Query;
 
 var visualization;
 

@@ -1,6 +1,7 @@
 library google_visualization_api.base;
 
 import 'dart:js';
+import 'dart:core';
 
 import 'static.dart';
 
