@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2+1
+
+- Updated readme to show deprecated message! New Version 0.1.3 will be called `google_charts`.
+
 ## 0.1.2
 - #5: Diff charts implemented and examples added
 

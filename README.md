@@ -1,3 +1,7 @@
+# DEPRECATED
+
+Package renamed! The new package you should use is called [google_charts](https://pub.dartlang.org/packages/google_charts)!
+
 # google_visualization_api
 
 A library to make it easy to use [Google's visualization api][api]
