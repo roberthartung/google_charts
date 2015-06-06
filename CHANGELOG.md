@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.3+2
+
+- Fixed title in readme
+
+## 0.1.3+1
+
+- Readme fixed
+
 ## 0.1.3
 
 - Package renamed to `google_charts`

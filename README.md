@@ -1,8 +1,4 @@
-# DEPRECATED
-
-Package renamed! The new package you should use is called [google_charts](https://pub.dartlang.org/packages/google_charts)!
-
-# google_visualization_api
+# Google Charts API Wrapper
 
 A library to make it easy to use [Google's visualization api][api]
 
@@ -26,7 +22,7 @@ You can use the api almost as you would do in the javascript version.
 ## Implemented wrappers
 
 - All Charts are implemented, included the corecharts and all other charts.
-- Material charts are not fully supported yet.
+- Material charts (Line, Bar/Column, Scatter)
 - Query API
 - Formatters
 - Static methods like `arrayToDataTable`, `drawChart` and `drawToolbar`

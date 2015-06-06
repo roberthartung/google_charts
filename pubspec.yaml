@@ -1,8 +1,8 @@
 name: google_charts
-version: 0.1.3
+version: 0.1.3+2
 author: Robert Hartung <robert.w.hartung@gmail.com>
 description: Google Charts API Wrapper Classes.
-homepage: https://github.com/roberthartung/google_visualization_api
+homepage: https://github.com/roberthartung/google_charts
 dependencies:
   browser: '>=0.10.0+2 <0.11.0'
   polymer: '>=0.16.3+1 <0.17.0'
