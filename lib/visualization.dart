@@ -178,11 +178,37 @@ abstract class CoreChart extends _SelectReadyErrorMouseClickAnimationChart {
   void getImageURI() {}
 }
 
+class SelectedObject {
+  JsObject _jsObject;
+
+  int get row => _jsObject['row'];
+
+  int get column => _jsObject['column'];
+
+  SelectedObject(this._jsObject);
+}
+
+class SelectionObjects implements Iterator<SelectedObject> {
+  JsObject _jsObject;
+
+  int get length => _jsObject['length'];
+
+  int _current = -1;
+
+  SelectionObjects(this._jsObject);
+
+  bool moveNext() {
+    return (_current++) < length;
+  }
+
+  SelectedObject get current => new SelectedObject(_jsObject[_current]);
+}
+
 abstract class CoreSelection {
   JsObject get jsChart;
 
-  getSelection() {
-    return jsChart.callMethod('getSelection');
+  SelectionObjects getSelection() {
+    return new SelectionObjects(jsChart.callMethod('getSelection'));
   }
 
   void setSelection() {}
