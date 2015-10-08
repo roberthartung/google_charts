@@ -4,12 +4,11 @@ import 'package:google_charts/google_charts.dart'
     show Table, DataTable;
 import 'package:polymer/polymer.dart';
 
-@CustomTag('gviz-table')
+@PolymerRegister('gviz-table')
 class GvizTable extends PolymerElement {
   GvizTable.created() : super.created() {}
 
-  void attached() {
-    super.attached();
+  void ready() {
     Table.load().then((_) {
       var data = new DataTable();
       data.addColumn('string', 'Name');

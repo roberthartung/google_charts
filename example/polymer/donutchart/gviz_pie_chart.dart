@@ -2,12 +2,11 @@ import 'package:google_charts/google_charts.dart'
     show PieChart,  arrayToDataTable;
 import 'package:polymer/polymer.dart';
 
-@CustomTag('gviz-pie-chart')
+@PolymerRegister('gviz-pie-chart')
 class GvizPieChart extends PolymerElement {
   GvizPieChart.created() : super.created() {}
 
-  void attached() {
-    super.attached();
+  void ready() {
     PieChart.load().then((_) {
       var data = arrayToDataTable([
         ['Task', 'Hours per Day'],
