@@ -3,7 +3,7 @@
 ## 0.2.1
 
 - Using new loader.js script for google charts
-- Fixes #11
+- Fixes #11, #2 and #3
 
 ## 0.2.0
 
