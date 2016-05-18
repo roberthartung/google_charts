@@ -2,6 +2,8 @@
 
 A library to make it easy to use [Google's visualization api][api]
 
+This package was matched against the version released on April 30, 2015 (Version 42).
+
 ## Usage
 
 You can use the api almost as you would do in the javascript version.

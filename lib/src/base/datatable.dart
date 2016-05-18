@@ -195,7 +195,7 @@ class DataTable extends _DataBase {
   ///
   /// [rowIndex] should be a number with a valid row index.
   void removeRow(int rowIndex) {
-    jsProxy.callMethod('removeRow', [removeRow]);
+    jsProxy.callMethod('removeRow', [rowIndex]);
   }
 
   /// Removes the specified number of rows starting from the row at the
@@ -204,7 +204,7 @@ class DataTable extends _DataBase {
   /// [numberOfRows] is the number of rows to remove.
   /// [rowIndex] should be a number with a valid row index.
   void removeRows(int rowIndex, int numberOfRows) {
-    jsProxy.callMethod('removeRows', [removeRow, numberOfRows]);
+    jsProxy.callMethod('removeRows', [rowIndex, numberOfRows]);
   }
 
   /// Sets the value, formatted value, and/or properties, of a cell.
