@@ -1,4 +1,4 @@
-library google.charts;
+library charts;
 
 /// Dart libraries
 import 'dart:core' as core;

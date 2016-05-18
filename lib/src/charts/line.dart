@@ -1,4 +1,4 @@
-part of google.charts;
+part of charts;
 
 /// Material Column Charts
 /// Experimental
