@@ -8,7 +8,7 @@ This package was matched against the version released on April 30, 2015 (Version
 
 You can use the api almost as you would do in the javascript version.
 
-1. Include `<script type="text/javascript" src="https://www.google.com/jsapi"></script>` in the `head` section of your HTML code.
+1. Include `<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>` in the `head` section of your HTML code.
 
 2. Use the `load` method of the Chart you want to use to load the required package(s) asynchronously. Afterwards you can go ahead and write your code.
     ```
@@ -43,7 +43,7 @@ You can use the api almost as you would do in the javascript version.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Pie Chart Example</title>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
     <div id="piechart" style="width: 900px; height: 500px;"></div>

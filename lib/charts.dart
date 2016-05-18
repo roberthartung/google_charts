@@ -48,7 +48,7 @@ abstract class Chart {
     jsChart.callMethod('clearChart');
   }
 
-  static Future load({List<String> packages, String version: "1"}) {
+  static Future load({List<String> packages, String version: "current"}) {
     Completer c = new Completer();
     JsObject args;
     if (packages != null) {
@@ -60,7 +60,9 @@ abstract class Chart {
       args =
           new JsObject.jsify({'callback': new JsFunction.withThis(c.complete)});
     }
-    context["google"].callMethod('load', ['visualization', version, args]);
+    // context["google"].callMethod('load', ['visualization', version, args]);
+    // google.charts.load("", {packages:["corechart"]});
+    context["google"]['charts'].callMethod('load', [version, args]);
     return c.future;
   }
 }

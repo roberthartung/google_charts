@@ -26,7 +26,7 @@ class GvizTable extends PolymerElement {
         'title': 'My First Table Chart',
         'showRowNumber': true,
         'alternatingRowStyle': true,
-        'width': 300,
+        'width': 500,
         'height': 200
       };
 

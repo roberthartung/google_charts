@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1
+
+- Using new loader.js script for google charts
+- Fixes #11
+
+## 0.2.0
+
+- Fixes #12
+
 ## 0.1.3+2
 
 - Fixed title in readme
