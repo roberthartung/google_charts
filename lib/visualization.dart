@@ -70,18 +70,13 @@ abstract class Chart {
     jsChart.callMethod('clearChart');
   }
 
-  static Future load({List<String> packages, String version: "current"}) {
+  static Future load({List<String> packages, String version: "current", String language}) {
     Completer c = new Completer();
-    JsObject args;
-    if (packages != null) {
-      args = new JsObject.jsify({
-        'packages': packages,
-        'callback': new JsFunction.withThis(c.complete)
-      });
-    } else {
-      args =
-          new JsObject.jsify({'callback': new JsFunction.withThis(c.complete)});
-    }
+    core.Map argsMap = {'callback': new JsFunction.withThis(c.complete)};
+    if (packages != null) argsMap['packages'] = packages;
+    if (language != null) argsMap['language'] = language;
+
+    JsObject args = new JsObject.jsify(argsMap);
     //context["google"].callMethod('load', ['visualization', version, args]);
     context["google"]['charts'].callMethod('load', [version, args]);
     return c.future;
