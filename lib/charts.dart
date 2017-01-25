@@ -55,7 +55,6 @@ abstract class Chart {
     if (language != null) argsMap["language"] = language;
 
     JsObject args = new JsObject.jsify({'callback': new JsFunction.withThis(c.complete)});
-    }
     // context["google"].callMethod('load', ['visualization', version, args]);
     // google.charts.load("", {packages:["corechart"]});
     context["google"]['charts'].callMethod('load', [version, args]);
