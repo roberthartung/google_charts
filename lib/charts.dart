@@ -50,7 +50,7 @@ abstract class Chart {
 
   static Future load({List<String> packages, String version: "current", String language}) {
     Completer c = new Completer();
-    Map argsMap = {'callback': new JsFunction.withThis(c.complete)};
+    core.Map argsMap = {'callback': new JsFunction.withThis(c.complete)};
     if (packages != null) argsMap["packages"] = packages;
     if (language != null) argsMap["language"] = language;
 
