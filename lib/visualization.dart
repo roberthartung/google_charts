@@ -70,7 +70,7 @@ abstract class Chart {
     jsChart.callMethod('clearChart');
   }
 
-  static Future load({List<String> packages, String version: "current", String language}) {
+  static Future load({List<String> packages, String language, String version: "current"}) {
     Completer c = new Completer();
     core.Map argsMap = {'callback': new JsFunction.withThis(c.complete)};
     if (packages != null) argsMap['packages'] = packages;
